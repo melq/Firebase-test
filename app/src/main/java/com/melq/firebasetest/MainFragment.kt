@@ -26,6 +26,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.mainButton.setOnClickListener { vm.changeText("Hello") }
+        binding.mainButton.setOnClickListener { vm.changeText() }
     }
 }
