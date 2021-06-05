@@ -5,7 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
-    private val _text by lazy { MutableLiveData<String>("main") }
+    private val _text: MutableLiveData<String> =
+        MutableLiveData<String>().also { mutableLiveData ->
+            mutableLiveData.value = "main"
+        }
     val text: LiveData<String> get() = _text
 
     fun changeText(str: String) { _text.value = str }

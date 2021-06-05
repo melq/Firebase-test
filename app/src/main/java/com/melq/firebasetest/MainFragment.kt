@@ -19,12 +19,13 @@ class MainFragment : Fragment() {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.vm = vm
+        binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.mainText.setOnClickListener { vm.changeText("Hello") }
+        binding.mainButton.setOnClickListener { vm.changeText("Hello") }
     }
 }
