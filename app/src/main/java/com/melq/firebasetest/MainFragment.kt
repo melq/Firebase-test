@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.melq.firebasetest.databinding.FragmentMainBinding
+import com.melq.firebasetest.model.user.UserFireStore
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -26,6 +27,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.mainButton.setOnClickListener { vm.changeText() }
+        binding.mainButton.setOnClickListener {
+            vm.changeText()
+            UserFireStore().createUser()
+        }
     }
 }
