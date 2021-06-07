@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.melq.firebasetest.databinding.FragmentMainBinding
+import com.melq.firebasetest.model.user.User
 import com.melq.firebasetest.model.user.UserFireStore
 
 class MainFragment : Fragment() {
@@ -29,7 +30,7 @@ class MainFragment : Fragment() {
 
         binding.mainButton.setOnClickListener {
             vm.changeText()
-            UserFireStore().createUser("melq", "Riku", "Tsuduki", 1999)
+            UserFireStore().createUser("melq", User("Riku", "Tsuzuki", 1999).toHashMap())
         }
     }
 }

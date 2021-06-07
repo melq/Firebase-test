@@ -11,7 +11,7 @@ class UserFireStore {
 
     private val db = Firebase.firestore
 
-    fun createUser(id: String, first: String, last: String, born: Int) {
+    fun createUser(id: String, user: HashMap<String, java.io.Serializable>) {
         val collectionName = "users"
         val doc = db.collection(collectionName).document(id)
 
@@ -22,11 +22,6 @@ class UserFireStore {
                 } else {
                     Log.d(TAG, "No such document")
 
-                    val user = hashMapOf(
-                        "first" to first,
-                        "last" to last,
-                        "born" to born
-                    )
                     doc.set(user)
                         .addOnSuccessListener { _ ->
                             Log.d(TAG, "Document created: $user")
