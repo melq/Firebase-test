@@ -29,7 +29,7 @@ class MainFragment : Fragment() {
 
         binding.mainButton.setOnClickListener {
             vm.changeText()
-            UserFireStore().createUser()
+            UserFireStore().createUser("melq", "Riku", "Tsuduki", 1999)
         }
     }
 }

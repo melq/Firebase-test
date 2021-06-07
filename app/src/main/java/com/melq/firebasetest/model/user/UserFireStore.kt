@@ -6,18 +6,45 @@ import com.google.firebase.ktx.Firebase
 
 class UserFireStore {
     companion object {
-        private val TAG = "DocSnippets"
+        private const val TAG = "DocSnippets"
     }
 
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
 
-    fun createUser() {
-        val user = hashMapOf(
-            "first" to "Ada",
-            "last" to "Lovelace",
-            "born" to 1815
+    fun createUser(id: String, first: String, last: String, born: Int) {
+        val collectionName = "users"
+        val doc = db.collection(collectionName).document(id)
+
+        doc.get()
+            .addOnSuccessListener { document ->
+                if (document.data != null) {
+                    Log.d(TAG, "DocumentSnapshot exists. data: ${document.data}")
+                } else {
+                    Log.d(TAG, "No such document")
+
+                    val user = hashMapOf(
+                        "first" to first,
+                        "last" to last,
+                        "born" to born
+                    )
+                    doc.set(user)
+                        .addOnSuccessListener { _ ->
+                            Log.d(TAG, "Document created: $user")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.d(TAG, "create failed with", e)
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.d(TAG, "get failed with", e)
+            }
+
+        /*val user = hashMapOf( // IDをランダム文字列で割り振るとき
+            "first" to "Bob",
+            "last" to "Madison",
+            "born" to 1988
         )
-
         db.collection("users")
             .add(user)
             .addOnSuccessListener { documentReference ->
@@ -25,22 +52,6 @@ class UserFireStore {
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
-            }
-
-        val user2 = hashMapOf(
-            "first" to "Alan",
-            "middle" to "Mathison",
-            "last" to "Turing",
-            "born" to 1912
-        )
-
-        db.collection("users")
-            .add(user2)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
-            }
+            }*/
      }
 }
