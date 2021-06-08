@@ -55,7 +55,7 @@ class UserFireStore {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     Log.d(TAG, "${document.id} => ${document.data}")
-                    userList.add(document.data.toUser(document.id))
+                    userList.add(document.data.toUser())
                 }
             }
             .addOnFailureListener { e ->
@@ -75,10 +75,11 @@ class UserFireStore {
             }
     }
 
-    private fun Map<String, Any>.toUser(id: String): User {
+    private fun Map<String, Any>.toUser(): User {
+        val id = this["id"] as String
         val first = this["first"] as String
         val last = this["last"] as String
-        val born = this["born"] as Int
-        return User(id, first, last, born)
+        val born = this["born"] as Long
+        return User(id, first, last, born.toInt())
     }
 }
