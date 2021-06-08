@@ -32,20 +32,6 @@ class UserFireStore {
             .addOnFailureListener { e ->
                 Log.w(tag, "get failed with", e)
             }
-
-        /*val user = hashMapOf( // IDをランダム文字列で割り振るとき
-            "first" to "Bob",
-            "last" to "Madison",
-            "born" to 1988
-        )
-        db.collection("users")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
-            }*/
      }
 
     fun getAllUser(): MutableList<User> {

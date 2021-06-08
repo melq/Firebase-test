@@ -1,12 +1,10 @@
 package com.melq.firebasetest
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -47,13 +45,12 @@ class MainFragment : Fragment() {
         adapter.setOnItemClickListener(object: CustomAdapter.OnItemClickListener {
             override fun onItemClick(view: View, position: Int, clickedId: String) {
                 Log.d("MAIN_FRAGMENT", "item clicked: ${userList[position]}")
+                // Click時の遷移などの挙動を記述
             }
         } )
 
         binding.fabAdd.setOnClickListener {
-            adapter.notifyDataSetChanged()
-            vm.changeText()
-            UserFireStore().editUser(User("Ada", "Ada", "Lovelace", 1815))
+            adapter.notifyDataSetChanged() // 更新ボタンをAppBarに移動する
         }
     }
 }
