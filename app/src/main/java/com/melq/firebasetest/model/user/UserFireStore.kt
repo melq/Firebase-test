@@ -7,12 +7,12 @@ import com.google.firebase.ktx.Firebase
 class UserFireStore {
     companion object {
         private const val TAG = "DocSnippets"
+        const val collectionName = "users"
     }
 
     private val db = Firebase.firestore
 
     fun createUser(id: String, user: HashMap<String, java.io.Serializable>) {
-        val collectionName = "users"
         val doc = db.collection(collectionName).document(id)
 
         doc.get()
@@ -49,4 +49,28 @@ class UserFireStore {
                 Log.w(TAG, "Error adding document", e)
             }*/
      }
+
+    fun getAllUser(): MutableList<User> {
+        val userList: MutableList<User> = mutableListOf()
+        db.collection(collectionName)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                    userList.add(document.data.toUser(document.id))
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error getting documents", e)
+            }
+        return userList
+    }
+    // 次回Delete, Edit関数を作る
+
+    fun Map<String, Any>.toUser(id: String): User {
+        val first = this["first"] as String
+        val last = this["last"] as String
+        val born = this["born"] as Int
+        return User(id, first, last, born)
+    }
 }
