@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
         binding.mainButton.setOnClickListener {
             vm.changeText()
 //            UserFireStore().createUser("melq", User("Riku", "Tsuzuki", 1999).toHashMap())
-            UserFireStore().getAllUser()
+            UserFireStore().deleteUser("DO4RFKuTZYx1mV3zTQHs")
         }
     }
 }

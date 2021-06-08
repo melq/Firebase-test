@@ -65,6 +65,17 @@ class UserFireStore {
             }
         return userList
     }
+
+    fun deleteUser(id: String) {
+        db.collection(collectionName).document(id)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error deleting document", e)
+            }
+    }
     // 次回Delete, Edit関数を作る
 
     fun Map<String, Any>.toUser(id: String): User {
