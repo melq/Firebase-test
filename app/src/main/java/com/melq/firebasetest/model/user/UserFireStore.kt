@@ -12,18 +12,16 @@ class UserFireStore {
 
     private val db = Firebase.firestore
 
-    fun createUser(id: String, user: HashMap<String, java.io.Serializable>) {
-        val doc = db.collection(collectionName).document(id)
-
+    fun createUser(user: User) {
+        val doc = db.collection(collectionName).document(user.id)
         doc.get()
             .addOnSuccessListener { document ->
                 if (document.data != null) {
                     Log.d(TAG, "DocumentSnapshot exists. data: ${document.data}")
                 } else {
                     Log.d(TAG, "No such document")
-
                     doc.set(user)
-                        .addOnSuccessListener { _ ->
+                        .addOnSuccessListener {
                             Log.d(TAG, "Document created: $user")
                         }
                         .addOnFailureListener { e ->
@@ -76,9 +74,8 @@ class UserFireStore {
                 Log.w(TAG, "Error deleting document", e)
             }
     }
-    // 次回Delete, Edit関数を作る
 
-    fun Map<String, Any>.toUser(id: String): User {
+    private fun Map<String, Any>.toUser(id: String): User {
         val first = this["first"] as String
         val last = this["last"] as String
         val born = this["born"] as Int
