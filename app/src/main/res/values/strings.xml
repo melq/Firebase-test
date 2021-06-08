@@ -3,4 +3,5 @@
     <string name="main">main</string>
     <string name="login">login</string>
     <string name="button">Button</string>
+    <string name="add_user">ユーザの追加</string>
 </resources>
