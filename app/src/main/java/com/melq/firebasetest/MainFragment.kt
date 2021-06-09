@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.melq.firebasetest.databinding.FragmentMainBinding
 import com.melq.firebasetest.model.user.User
 import com.melq.firebasetest.model.user.UserFireStore
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.*
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -48,6 +48,11 @@ class MainFragment : Fragment() {
                 // Click時の遷移などの挙動を記述
             }
         } )
+
+        GlobalScope.launch(Dispatchers.Main) { // この処理が終わるまで描画されないっぽい
+            while (vm.userList.size < 1) delay(100)
+            adapter.notifyDataSetChanged()
+        }
 
         binding.fabAdd.setOnClickListener {
             Log.d("FAB_ADD_ONCLICK", "fabAdd clicked")
