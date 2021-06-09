@@ -12,20 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.melq.firebasetest.databinding.FragmentMainBinding
 import com.melq.firebasetest.model.user.User
 import com.melq.firebasetest.model.user.UserFireStore
+import kotlinx.coroutines.coroutineScope
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val vm: MainViewModel by viewModels()
 
-    private var userList: MutableList<User> = UserFireStore().getAllUser()
-    private val adapter = CustomAdapter(userList)
+    private lateinit var adapter: CustomAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        adapter = CustomAdapter(vm.userList)
 
         binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.vm = vm
@@ -44,13 +44,14 @@ class MainFragment : Fragment() {
 
         adapter.setOnItemClickListener(object: CustomAdapter.OnItemClickListener {
             override fun onItemClick(view: View, position: Int, clickedId: String) {
-                Log.d("MAIN_FRAGMENT", "item clicked: ${userList[position]}")
+                Log.d("MAIN_FRAGMENT", "item clicked: ${vm.userList[position]}")
                 // Click時の遷移などの挙動を記述
             }
         } )
 
         binding.fabAdd.setOnClickListener {
-            adapter.notifyDataSetChanged() // 更新ボタンをAppBarに移動する
+            Log.d("FAB_ADD_ONCLICK", "fabAdd clicked")
+            adapter.notifyDataSetChanged() // 更新ボタン作成する
         }
     }
 }
