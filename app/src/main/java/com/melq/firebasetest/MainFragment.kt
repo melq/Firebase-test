@@ -55,9 +55,9 @@ class MainFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
-        binding.fabAdd.setOnClickListener {
+        binding.fabAdd.setOnClickListener { // 更新ボタンも作成する
             Log.d("FAB_ADD_ONCLICK", "fabAdd clicked")
-            adapter.notifyDataSetChanged() // 更新ボタン作成する
+            adapter.notifyDataSetChanged()
         }
     }
 }

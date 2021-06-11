@@ -7,5 +7,5 @@ import com.melq.firebasetest.model.user.User
 import com.melq.firebasetest.model.user.UserFireStore
 
 class MainViewModel : ViewModel() {
-    val userList: MutableList<User> = UserFireStore().getAllUser()
+    val userList: MutableList<User> = UserFireStore().getAllUser() // LiveDataにしたほうがいい？
 }
