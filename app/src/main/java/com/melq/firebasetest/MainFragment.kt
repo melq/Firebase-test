@@ -49,6 +49,7 @@ class MainFragment : Fragment() {
             }
         } )
 
+        // 初回起動以外はローカルコピーかローカルDBを参照したい
         GlobalScope.launch(Dispatchers.Main) { // この処理が終わるまで描画されないっぽい
             while (vm.userList.size < 1) delay(100)
             adapter.notifyDataSetChanged()

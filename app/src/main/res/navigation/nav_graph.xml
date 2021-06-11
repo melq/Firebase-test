@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_mainFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_createUserFragment"
+            app:destination="@id/createUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.melq.firebasetest.page.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/createUserFragment"
+        android:name="com.melq.firebasetest.page.create.CreateUserFragment"
+        android:label="CreateUserFragment"
+        tools:layout="@layout/fragment_create_user"/>
 </navigation>
