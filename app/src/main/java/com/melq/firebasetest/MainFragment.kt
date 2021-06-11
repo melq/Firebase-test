@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melq.firebasetest.databinding.FragmentMainBinding
-import com.melq.firebasetest.model.user.User
-import com.melq.firebasetest.model.user.UserFireStore
 import kotlinx.coroutines.*
 
 class MainFragment : Fragment() {
@@ -57,7 +56,7 @@ class MainFragment : Fragment() {
 
         binding.fabAdd.setOnClickListener { // 更新ボタンも作成する
             Log.d("FAB_ADD_ONCLICK", "fabAdd clicked")
-            adapter.notifyDataSetChanged()
+            findNavController().navigate(R.id.action_mainFragment_to_createUserFragment)
         }
     }
 }
