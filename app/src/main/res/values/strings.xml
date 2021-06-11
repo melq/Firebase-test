@@ -4,4 +4,10 @@
     <string name="login">login</string>
     <string name="button">Button</string>
     <string name="add_user">ユーザの追加</string>
+    <string name="user_name">User name</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="year_of_birth">Year of birth</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 </resources>
