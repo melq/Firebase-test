@@ -24,8 +24,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        adapter = CustomAdapter(vm.userList)
-
+        vm.loadUserList()
         binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.vm = vm
         binding.lifecycleOwner = this
@@ -35,6 +34,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter = CustomAdapter(vm.userList)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
@@ -49,9 +49,11 @@ class MainFragment : Fragment() {
         } )
 
         // 初回起動以外はローカルコピーかローカルDBを参照したい
-        GlobalScope.launch(Dispatchers.Main) { // この処理が終わるまで描画されないっぽい
-            while (vm.userList.size < 1) delay(100)
-            adapter.notifyDataSetChanged()
+        vm.isUserListLoaded.observe(viewLifecycleOwner) {
+            if (it == true) {
+                adapter.notifyDataSetChanged()
+                vm.isUserListLoaded.value = false
+            }
         }
 
         binding.fabAdd.setOnClickListener { // 更新ボタンも作成する
