@@ -1,5 +1,6 @@
 package com.melq.firebasetest
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,12 +20,16 @@ class MainFragment : Fragment() {
 
     private lateinit var adapter: CustomAdapter
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        vm.loadUserList()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        vm.loadUserList()
         binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.vm = vm
         binding.lifecycleOwner = this
@@ -56,9 +61,15 @@ class MainFragment : Fragment() {
             }
         }
 
-        binding.fabAdd.setOnClickListener { // 更新ボタンも作成する
-            Log.d("FAB_ADD_ONCLICK", "fabAdd clicked")
+        binding.fabAdd.setOnClickListener {
+            Log.d("MAIN_FRAGMENT", "fabAdd clicked")
             findNavController().navigate(R.id.action_mainFragment_to_createUserFragment)
+        }
+
+        binding.fabRefresh.setOnClickListener {
+            Log.d("MAIN_FRAGMENT", "fabRefresh clicked")
+            vm.loadUserList()
+            adapter.notifyDataSetChanged()
         }
     }
 }
