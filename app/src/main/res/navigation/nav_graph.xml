@@ -20,6 +20,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mainFragment_to_editUserFragment"
+            app:destination="@id/editUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -30,5 +33,10 @@
         android:id="@+id/createUserFragment"
         android:name="com.melq.firebasetest.page.create.CreateUserFragment"
         android:label="CreateUserFragment"
+        tools:layout="@layout/fragment_create_user"/>
+    <fragment
+        android:id="@+id/editUserFragment"
+        android:name="com.melq.firebasetest.page.edit.EditUserFragment"
+        android:label="EditUserFragment"
         tools:layout="@layout/fragment_create_user"/>
 </navigation>

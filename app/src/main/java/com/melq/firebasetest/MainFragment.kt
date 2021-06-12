@@ -71,5 +71,7 @@ class MainFragment : Fragment() {
             vm.loadUserList()
             adapter.notifyDataSetChanged()
         }
+
+        // ソート機能をつけたい
     }
 }
