@@ -25,12 +25,13 @@ class CustomAdapter(private val userList: MutableList<User>): RecyclerView.Adapt
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val userData = userList[position]
 
-        holder.tvFirst.text = userData.first
-        holder.tvLast.text = userData.last
-        holder.tvBorn.text = userData.born.toString()
-
-        holder.box.setOnClickListener {
-            listener.onItemClick(it, position, userData.id)
+        holder.run { // viewの設定
+            tvFirst.text = userData.first
+            tvLast.text = userData.last
+            tvBorn.text = userData.born.toString()
+            box.setOnClickListener {
+                listener.onItemClick(it, position, userData.id)
+            }
         }
     }
 

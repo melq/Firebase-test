@@ -41,7 +41,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = CustomAdapter(vm.userList).apply {
+        adapter = CustomAdapter(vm.userList).apply { // adapterの作成
             setOnItemClickListener(object: CustomAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, position: Int, clickedId: String) {
                     Log.d("MAIN_FRAGMENT", "item clicked: ${vm.userList[position]}")
@@ -49,9 +49,9 @@ class MainFragment : Fragment() {
                 }
             } )
         }
-        val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL) // dividerの作成
         context?.let { AppCompatResources.getDrawable(it, R.drawable.divider) }
-        binding.recyclerView.also {
+        binding.recyclerView.also { //RecyclerViewの設定
             it.layoutManager = LinearLayoutManager(context)
             it.adapter = adapter
             it.addItemDecoration(dividerItemDecoration)
