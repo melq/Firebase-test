@@ -49,7 +49,7 @@ class MainFragment : Fragment() {
         adapter.setOnItemClickListener(object: CustomAdapter.OnItemClickListener {
             override fun onItemClick(view: View, position: Int, clickedId: String) {
                 Log.d("MAIN_FRAGMENT", "item clicked: ${vm.userList[position]}")
-                // Click時の遷移などの挙動を記述
+                findNavController().navigate(R.id.action_mainFragment_to_editUserFragment)
             }
         } )
 
