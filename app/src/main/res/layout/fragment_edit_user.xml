@@ -1,127 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/layout_input"
-        android:orientation="vertical"
+    <data>
+        <variable
+            name="vm"
+            type="com.melq.firebasetest.page.edit.EditUserViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_name" />
-
-        <EditText
-            android:id="@+id/et_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/user_name"
-            android:hint="@string/user_name"
-            android:inputType="text" />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/layout_input"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:baselineAligned="false">
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="16dp">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_name" />
+
+            <EditText
+                android:id="@+id/et_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:autofillHints="@string/user_name"
+                android:hint="@string/user_name"
+                android:inputType="text"
+                android:text="@{vm.userName}" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/first_name" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:baselineAligned="false">
 
-                <EditText
-                    android:id="@+id/et_first_name"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autofillHints="@string/first_name"
-                    android:hint="@string/first_name"
-                    android:inputType="text" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/first_name" />
+
+                    <EditText
+                        android:id="@+id/et_first_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="@string/first_name"
+                        android:hint="@string/first_name"
+                        android:inputType="text"
+                        android:text="@{vm.firstName}" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_name" />
+
+                    <EditText
+                        android:id="@+id/et_last_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="@string/last_name"
+                        android:hint="@string/last_name"
+                        android:inputType="text"
+                        android:text="@{vm.lastName}" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_marginTop="16dp"
+                android:text="@string/year_of_birth" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/last_name" />
-
-                <EditText
-                    android:id="@+id/et_last_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="@string/last_name"
-                    android:hint="@string/last_name"
-                    android:inputType="text" />
-
-            </LinearLayout>
+            <EditText
+                android:id="@+id/et_born"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="32dp"
+                android:autofillHints="@string/year_of_birth"
+                android:hint="@string/year_of_birth"
+                android:inputType="number"
+                android:text="@{vm.born.toString()}" />
 
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/year_of_birth" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_input"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="16dp"
+            android:layout_gravity="end">
 
-        <EditText
-            android:id="@+id/et_born"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingEnd="32dp"
-            android:autofillHints="@string/year_of_birth"
-            android:hint="@string/year_of_birth"
-            android:inputType="number" />
+            <TextView
+                android:id="@+id/tv_cancel"
+                style="@style/textButton"
+                android:background="@drawable/ripple"
+                android:text="@string/cancel" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_delete"
+                style="@style/textButton"
+                android:background="@drawable/ripple"
+                android:layout_marginStart="16dp"
+                android:text="@string/delete" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/layout_input"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="16dp"
-        android:layout_gravity="end">
+            <TextView
+                android:id="@+id/tv_ok"
+                style="@style/textButton"
+                android:background="@drawable/ripple"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/ok" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_cancel"
-            style="@style/textButton"
-            android:background="@drawable/ripple"
-            android:text="@string/cancel"/>
-
-        <TextView
-            android:id="@+id/tv_delete"
-            style="@style/textButton"
-            android:background="@drawable/ripple"
-            android:layout_marginStart="16dp"
-            android:text="@string/delete"/>
-
-        <TextView
-            android:id="@+id/tv_ok"
-            style="@style/textButton"
-            android:background="@drawable/ripple"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/ok"/>
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
