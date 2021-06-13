@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -30,28 +31,31 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
-        binding.vm = vm
-        binding.lifecycleOwner = this
+        binding = FragmentMainBinding.inflate(inflater, container, false).also {
+            it.vm = vm
+            it.lifecycleOwner = this
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = CustomAdapter(vm.userList)
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.adapter = adapter
+        adapter = CustomAdapter(vm.userList).apply {
+            setOnItemClickListener(object: CustomAdapter.OnItemClickListener {
+                override fun onItemClick(view: View, position: Int, clickedId: String) {
+                    Log.d("MAIN_FRAGMENT", "item clicked: ${vm.userList[position]}")
+                    findNavController().navigate(R.id.action_mainFragment_to_editUserFragment)
+                }
+            } )
+        }
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        context?.getDrawable(R.drawable.divider)?.let { dividerItemDecoration.setDrawable(it) }
-        binding.recyclerView.addItemDecoration(dividerItemDecoration)
-
-        adapter.setOnItemClickListener(object: CustomAdapter.OnItemClickListener {
-            override fun onItemClick(view: View, position: Int, clickedId: String) {
-                Log.d("MAIN_FRAGMENT", "item clicked: ${vm.userList[position]}")
-                findNavController().navigate(R.id.action_mainFragment_to_editUserFragment)
-            }
-        } )
+        context?.let { AppCompatResources.getDrawable(it, R.drawable.divider) }
+        binding.recyclerView.also {
+            it.layoutManager = LinearLayoutManager(context)
+            it.adapter = adapter
+            it.addItemDecoration(dividerItemDecoration)
+        }
 
         // 初回起動以外はローカルコピーかローカルDBを参照したい
         vm.isUserListLoaded.observe(viewLifecycleOwner) {

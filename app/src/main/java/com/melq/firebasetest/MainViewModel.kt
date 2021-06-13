@@ -18,8 +18,10 @@ class MainViewModel : ViewModel() {
 
         viewModelScope.launch { // 待つ処理をメインスレッドで行うと、取得が中断されてしまう
             while (tmpList.isEmpty()) { delay(100) }
-            userList.clear()
-            userList.addAll(tmpList)
+            userList.run {
+                clear()
+                addAll(tmpList)
+            }
             isUserListLoaded.value = true
         }
 
