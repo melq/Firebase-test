@@ -3,14 +3,15 @@ package com.melq.firebasetest.page.create
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.melq.firebasetest.ActivityViewModel
 import com.melq.firebasetest.R
 import com.melq.firebasetest.databinding.FragmentCreateUserBinding
 
 class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
-    private val vm: CreateUserViewModel by viewModels()
+    private val vm: ActivityViewModel by activityViewModels()
 
     private var _binding: FragmentCreateUserBinding? = null
     private val binding: FragmentCreateUserBinding get() = _binding!!
@@ -32,7 +33,9 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
                 vm.errorMessage.value = ""
             }
             vm.done.observe(viewLifecycleOwner) {
-                if (it == true) findNavController().popBackStack()
+                if (it == true) {
+                    findNavController().popBackStack()
+                }
             }
         }
 

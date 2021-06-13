@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="com.melq.firebasetest.page.edit.EditUserViewModel" />
+            type="com.melq.firebasetest.ActivityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

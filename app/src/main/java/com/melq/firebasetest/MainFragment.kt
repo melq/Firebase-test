@@ -8,16 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melq.firebasetest.databinding.FragmentMainBinding
-import kotlinx.coroutines.*
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
-    private val vm: MainViewModel by viewModels()
+    private val vm: ActivityViewModel by activityViewModels()
 
     private lateinit var adapter: CustomAdapter
 
