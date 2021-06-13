@@ -105,17 +105,20 @@
         <TextView
             android:id="@+id/tv_cancel"
             style="@style/textButton"
+            android:background="@drawable/ripple"
             android:text="@string/cancel"/>
 
         <TextView
             android:id="@+id/tv_delete"
             style="@style/textButton"
+            android:background="@drawable/ripple"
             android:layout_marginStart="16dp"
             android:text="@string/delete"/>
 
         <TextView
             android:id="@+id/tv_ok"
             style="@style/textButton"
+            android:background="@drawable/ripple"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:text="@string/ok"/>
