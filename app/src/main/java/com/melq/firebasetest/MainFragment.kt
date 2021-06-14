@@ -1,6 +1,5 @@
 package com.melq.firebasetest
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,16 +19,12 @@ class MainFragment : Fragment() {
 
     private lateinit var adapter: CustomAdapter
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        vm.loadUserList()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        vm.loadUserList()
         binding = FragmentMainBinding.inflate(inflater, container, false).also {
             it.vm = vm
             it.lifecycleOwner = this
@@ -50,7 +45,7 @@ class MainFragment : Fragment() {
         }
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL) // dividerの作成
         context?.let { AppCompatResources.getDrawable(it, R.drawable.divider) }
-        binding.recyclerView.also { //RecyclerViewの設定
+        binding.recyclerView.also { // RecyclerViewの設定
             it.layoutManager = LinearLayoutManager(context)
             it.adapter = adapter
             it.addItemDecoration(dividerItemDecoration)
