@@ -39,6 +39,7 @@ class MainFragment : Fragment() {
             setOnItemClickListener(object: CustomAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, position: Int, clickedId: String) {
                     Log.d("MAIN_FRAGMENT", "item clicked: ${vm.userList[position]}")
+                    vm.putUserData(vm.userList[position])
                     findNavController().navigate(R.id.action_mainFragment_to_editUserFragment)
                 }
             } )
