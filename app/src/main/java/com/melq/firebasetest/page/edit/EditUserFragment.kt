@@ -1,5 +1,7 @@
 package com.melq.firebasetest.page.edit
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,13 +37,21 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
         }
 
         binding.tvDelete.setOnClickListener {
-            vm.deleteUser()
-            vm.done.observe(viewLifecycleOwner) {
-                if (it == true) {
-                    vm.done.value = false
-                    findNavController().popBackStack()
+            val dialog = AlertDialog.Builder(context).apply {
+                setTitle(R.string.delete)
+                setMessage(R.string.ask_delete)
+                setPositiveButton(R.string.ok) { _, _ ->
+                    vm.deleteUser()
+                    vm.done.observe(viewLifecycleOwner) {
+                        if (it == true) {
+                            vm.done.value = false
+                            findNavController().popBackStack()
+                        }
+                    }
                 }
+                setNegativeButton(R.string.cancel) { _, _ -> /*なにもしない*/ }
             }
+            dialog.show()
         }
     }
 }
