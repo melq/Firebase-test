@@ -34,6 +34,7 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
             }
             vm.done.observe(viewLifecycleOwner) {
                 if (it == true) {
+                    vm.done.value = false
                     findNavController().popBackStack()
                 }
             }

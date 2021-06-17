@@ -33,5 +33,15 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
         binding.tvCancel.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.tvDelete.setOnClickListener {
+            vm.deleteUser(vm.user.id)
+            vm.done.observe(viewLifecycleOwner) {
+                if (it == true) {
+                    vm.done.value = false
+                    findNavController().popBackStack()
+                }
+            }
+        }
     }
 }

@@ -72,6 +72,10 @@ class ActivityViewModel : ViewModel() {
         }
     }
 
+    fun deleteUser(id: String) {
+
+    }
+
     fun putUserData(user: User) {
         this.user = user.apply {
             _userName.value = id
