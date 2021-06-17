@@ -32,7 +32,9 @@
                 android:autofillHints="@string/user_name"
                 android:hint="@string/user_name"
                 android:inputType="text"
-                android:text="@{vm.userName}"/>
+                android:text="@{vm.userName}"
+                android:textColor="@color/dark_gray"
+                android:focusable="false"/>
 
             <LinearLayout
                 android:orientation="horizontal"
