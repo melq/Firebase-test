@@ -35,7 +35,7 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
         }
 
         binding.tvDelete.setOnClickListener {
-            vm.deleteUser(vm.user.id)
+            vm.deleteUser()
             vm.done.observe(viewLifecycleOwner) {
                 if (it == true) {
                     vm.done.value = false
