@@ -1,11 +1,11 @@
 package com.melq.firebasetest.page.edit
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -31,6 +31,7 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        vm.putUserData()
 
         binding.tvCancel.setOnClickListener {
             findNavController().popBackStack()
@@ -53,5 +54,9 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
             }
             dialog.show()
         }
+
+        binding.etFirstName.addTextChangedListener {
+        }
+        // OKボタン実装に際しTextWatcherを使ってvm.userをいじる
     }
 }

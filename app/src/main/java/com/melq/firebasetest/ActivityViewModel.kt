@@ -56,7 +56,7 @@ class ActivityViewModel : ViewModel() {
         }*/
     }
 
-    fun createUser(id: String, first: String, last: String, born: String) {
+    fun createUser(id: String, first: String, last: String, born: String) { // vm.user使えば引数いらなくできる
         if (id.isNotEmpty() &&
             first.isNotEmpty() &&
             last.isNotEmpty()&&
@@ -77,8 +77,8 @@ class ActivityViewModel : ViewModel() {
         done.value = true
     }
 
-    fun putUserData(user: User) {
-        this.user = user.apply {
+    fun putUserData() {
+        this.user.run {
             _userName.value = id
             _firstName.value = first
             _lastName.value = last
