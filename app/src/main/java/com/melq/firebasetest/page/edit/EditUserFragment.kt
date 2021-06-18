@@ -56,6 +56,13 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
         }
 
         binding.etFirstName.addTextChangedListener {
+            vm.user.first = it.toString()
+        }
+        binding.etLastName.addTextChangedListener {
+            vm.user.last = it.toString()
+        }
+        binding.etBorn.addTextChangedListener {
+            vm.user.born = it.toString().toInt()
         }
         // OKボタン実装に際しTextWatcherを使ってvm.userをいじる
     }

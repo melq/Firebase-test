@@ -1,10 +1,10 @@
 package com.melq.firebasetest.model.user
 
 class User (
-    val id:     String,
-    val first:  String,
-    val last:   String,
-    val born:   Int
+    var id:     String,
+    var first:  String,
+    var last:   String,
+    var born:   Int
 ) {
 
     fun toHashMap(): HashMap<String, java.io.Serializable> {
