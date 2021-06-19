@@ -64,6 +64,15 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
         binding.etBorn.addTextChangedListener {
             vm.user.born = it.toString().toInt()
         }
-        // OKボタン実装に際しTextWatcherを使ってvm.userをいじる
+
+        binding.tvOk.setOnClickListener {
+            vm.editUser()
+            vm.done.observe(viewLifecycleOwner) {
+                if (it == true) {
+                    vm.done.value = false
+                    findNavController().popBackStack()
+                }
+            }
+        }
     }
 }

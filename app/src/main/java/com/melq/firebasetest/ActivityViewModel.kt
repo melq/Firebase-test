@@ -73,8 +73,17 @@ class ActivityViewModel : ViewModel() {
     }
 
     fun deleteUser() {
-        UserFireStore().deleteUser(user.id)
-        done.value = true
+        viewModelScope.launch {
+            UserFireStore().deleteUser(user.id)
+            done.value = true
+        }
+    }
+
+    fun editUser() {
+        viewModelScope.launch {
+            UserFireStore().editUser(user)
+            done.value = true
+        }
     }
 
     fun putUserData() {
