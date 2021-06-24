@@ -1,9 +1,12 @@
 package com.melq.firebasetest
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.melq.firebasetest.model.user.User
 import com.melq.firebasetest.model.user.UserFireStore
 import kotlinx.coroutines.*
@@ -16,7 +19,7 @@ class ActivityViewModel : ViewModel() {
     var userList: MutableList<User> = mutableListOf()
 
     /* CreateUserFragment */
-    val errorMessage = MutableLiveData<String>()
+    val eMessage = MutableLiveData<String>()
     val done = MutableLiveData<Boolean>()
 
     /* EditUserFragment */
@@ -32,6 +35,10 @@ class ActivityViewModel : ViewModel() {
 
     private val _born = MutableLiveData<Int>()
     val born: LiveData<Int> get() = _born
+
+    /*認証周り*/
+    val auth = Firebase.auth
+    var isLogin = false
 
 
     fun loadUserList() {
@@ -66,7 +73,7 @@ class ActivityViewModel : ViewModel() {
                 done.value = true
             }
         } else {
-            errorMessage.value = "Please input all"
+            eMessage.value = "Please input all"
             return
         }
     }
@@ -85,7 +92,7 @@ class ActivityViewModel : ViewModel() {
         }
     }
 
-    fun putUserData() {
+    fun updateInnerUserData() {
         this.user.run {
             _userName.value = id
             _firstName.value = first
@@ -99,6 +106,21 @@ class ActivityViewModel : ViewModel() {
     }
 
     fun createPushed(email: String, password: String) {
-
+        val tag = "CREATE_ACCOUNT"
+        if (email.isBlank() || password.isBlank()) {
+            eMessage.value = "必要な情報を入力してください"
+            return
+        }
+        
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(tag, "createUserWithEmail: success")
+                    done.value = true
+                } else {
+                    Log.w(tag, "createUserWithEmail: failure", task.exception)
+                    eMessage.value = "create user failed"
+                }
+            }
     }
 }

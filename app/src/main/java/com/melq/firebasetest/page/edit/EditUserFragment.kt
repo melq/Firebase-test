@@ -31,7 +31,7 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm.putUserData()
+        vm.updateInnerUserData()
 
         binding.tvCancel.setOnClickListener {
             findNavController().popBackStack()
@@ -73,6 +73,7 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
                     findNavController().popBackStack()
                 }
             }
+//            vm.eMessage.observe(viewLifecycleOwner) {  } 後で追加
         }
     }
 }

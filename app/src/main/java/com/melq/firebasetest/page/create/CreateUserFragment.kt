@@ -27,10 +27,11 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
                 binding.etLastName.text.toString(),
                 binding.etBorn.text.toString()
             )
-            vm.errorMessage.observe(viewLifecycleOwner) { msg ->
-                if (msg.isEmpty()) return@observe
-                Snackbar.make(requireView(), msg, Snackbar.LENGTH_SHORT).show()
-                vm.errorMessage.value = ""
+            vm.eMessage.observe(viewLifecycleOwner) { msg ->
+                if (msg.isNotEmpty()) {
+                    Snackbar.make(requireView(), msg, Snackbar.LENGTH_SHORT).show()
+                    vm.eMessage.value = ""
+                }
             }
             vm.done.observe(viewLifecycleOwner) {
                 if (it == true) {

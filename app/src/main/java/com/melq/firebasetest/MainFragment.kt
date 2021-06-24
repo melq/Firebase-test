@@ -2,9 +2,7 @@ package com.melq.firebasetest
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,6 +18,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val binding: FragmentMainBinding get() = _binding!!
 
     private lateinit var adapter: CustomAdapter
+
+    override fun onStart() {
+        super.onStart()
+        val currentUser = vm.auth.currentUser
+        if (currentUser != null) {
+            vm.isLogin = true
+            Log.d("MAIN_FRAGMENT", "email: ${currentUser.email}, uid: ${currentUser.uid}")
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
