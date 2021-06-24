@@ -13,27 +13,19 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melq.firebasetest.databinding.FragmentMainBinding
 
-class MainFragment : Fragment() {
-    private lateinit var binding: FragmentMainBinding
+class MainFragment : Fragment(R.layout.fragment_main) {
     private val vm: ActivityViewModel by activityViewModels()
+
+    private var _binding: FragmentMainBinding? = null
+    private val binding: FragmentMainBinding get() = _binding!!
 
     private lateinit var adapter: CustomAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        vm.loadUserList()
-        binding = FragmentMainBinding.inflate(inflater, container, false).also {
-            it.vm = vm
-            it.lifecycleOwner = this
-        }
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentMainBinding.bind(view)
+
+        vm.loadUserList()
 
         adapter = CustomAdapter(vm.userList).apply { // adapterの作成
             setOnItemClickListener(object: CustomAdapter.OnItemClickListener {
