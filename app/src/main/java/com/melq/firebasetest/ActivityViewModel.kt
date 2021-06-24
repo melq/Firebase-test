@@ -9,6 +9,8 @@ import com.melq.firebasetest.model.user.UserFireStore
 import kotlinx.coroutines.*
 
 class ActivityViewModel : ViewModel() {
+    private val repository = UserFireStore()
+
     /* MainFragment用プロパティ */
     val isUserListLoaded = MutableLiveData<Boolean>()
     var userList: MutableList<User> = mutableListOf()
@@ -33,10 +35,7 @@ class ActivityViewModel : ViewModel() {
 
 
     fun loadUserList() {
-        val tmpList = UserFireStore().getAllUser()
-
-        viewModelScope.launch { // 待つ処理をメインスレッドで行うと、取得が中断されてしまう
-            while (tmpList.isEmpty()) { delay(100) }
+        repository.getAllUser() { tmpList ->
             userList.run {
                 clear()
                 addAll(tmpList)
@@ -63,7 +62,7 @@ class ActivityViewModel : ViewModel() {
             born.isNotEmpty()
         ) {
             viewModelScope.launch {
-                UserFireStore().createUser(User(id, first, last, born.toInt()))
+                repository.createUser(User(id, first, last, born.toInt()))
                 done.value = true
             }
         } else {
@@ -74,14 +73,14 @@ class ActivityViewModel : ViewModel() {
 
     fun deleteUser() {
         viewModelScope.launch {
-            UserFireStore().deleteUser(user.id)
+            repository.deleteUser(user.id)
             done.value = true
         }
     }
 
     fun editUser() {
         viewModelScope.launch {
-            UserFireStore().editUser(user)
+            repository.editUser(user)
             done.value = true
         }
     }

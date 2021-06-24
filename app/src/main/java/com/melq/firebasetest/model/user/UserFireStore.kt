@@ -34,7 +34,7 @@ class UserFireStore {
             }
      }
 
-    fun getAllUser(): MutableList<User> {
+    fun getAllUser(onSuccess: (MutableList<User>) -> Unit): MutableList<User> {
         val tag = "GET_ALL_USER"
         val userList: MutableList<User> = mutableListOf()
         db.collection(collectionName)
@@ -44,6 +44,7 @@ class UserFireStore {
                     Log.d(tag, "${document.id} => ${document.data}")
                     userList.add(document.data.toUser())
                 }
+                onSuccess(userList)
             }
             .addOnFailureListener { e ->
                 Log.w(tag, "Error getting documents", e)

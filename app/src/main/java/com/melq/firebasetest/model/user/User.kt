@@ -10,18 +10,18 @@ class User (
     fun toHashMap(): HashMap<String, java.io.Serializable> {
         return hashMapOf(
             "id" to id,
-            "first" to this.first,
-            "last" to this.last,
-            "born" to this.born
+            "first" to first,
+            "last" to last,
+            "born" to born
         )
     }
 
     override fun toString(): String {
         return hashMapOf(
             "id" to id,
-            "first" to this.first,
-            "last" to this.last,
-            "born" to this.born
+            "first" to first,
+            "last" to last,
+            "born" to born
         ).toString()
     }
 }
