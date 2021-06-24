@@ -93,4 +93,12 @@ class ActivityViewModel : ViewModel() {
             _born.value = born
         }
     }
+
+    fun loginPushed(email: String, password: String) {
+
+    }
+
+    fun createPushed(email: String, password: String) {
+
+    }
 }
