@@ -13,4 +13,5 @@
     <string name="refresh_list">refresh list</string>
     <string name="delete">Delete</string>
     <string name="ask_delete">Delete this user?</string>
+    <string name="e_mail">e-mail</string>
 </resources>
