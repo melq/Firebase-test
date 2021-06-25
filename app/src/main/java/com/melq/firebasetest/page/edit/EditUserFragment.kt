@@ -56,7 +56,7 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
             dialog.show()
         }
 
-        binding.etFirstName.addTextChangedListener {
+        binding.etFirstName.addTextChangedListener { // こんな面倒なことしているのは、MainからのUserデータの受け渡方法のせい
             vm.user.first = it.toString()
         }
         binding.etLastName.addTextChangedListener {

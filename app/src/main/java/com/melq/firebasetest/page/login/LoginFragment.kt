@@ -51,5 +51,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
         }
+
+        binding.btLogout.setOnClickListener {
+            vm.logoutPushed()
+            vm.done.observe(viewLifecycleOwner) {
+                if (it == true) {
+                    findNavController().popBackStack()
+                    vm.done.value = false
+                }
+            }
+        }
     }
 }

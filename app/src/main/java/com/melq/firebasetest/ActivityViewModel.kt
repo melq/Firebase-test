@@ -44,15 +44,17 @@ class ActivityViewModel : ViewModel() {
     val auth = Firebase.auth
     var isLogin = false
 
-
     fun loadUserList() {
-        repository.getAllUser() { tmpList ->
-            userList.run {
-                clear()
-                addAll(tmpList)
+        if (auth.currentUser != null) {
+            repository.getAllUser() { tmpList ->
+                userList.run {
+                    clear()
+                    addAll(tmpList)
+                }
+                isUserListLoaded.value = true
             }
-            isUserListLoaded.value = true
         }
+
 
         /*runBlocking { // これだと更新できない(getAllUserで取得が完了する前に関数が終わってる？)
             val tmpList: MutableList<User> = mutableListOf()
@@ -184,5 +186,10 @@ class ActivityViewModel : ViewModel() {
                     }
                 }
             }
+    }
+
+    fun logoutPushed() {
+        auth.signOut()
+        done.value = true
     }
 }
