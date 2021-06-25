@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.melq.firebasetest.model.user.User
@@ -102,7 +104,35 @@ class ActivityViewModel : ViewModel() {
     }
 
     fun loginPushed(email: String, password: String) {
+        val tag = "LOGIN"
+        if (email.isBlank() || password.isBlank()) {
+            eMessage.value = "必要な情報を入力してください"
+            return
+        }
 
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(tag, "signInWithEmail: success")
+                    eMessage.value = "$email としてログインしました"
+                    done.value = true
+                } else {
+                    when (task.exception) {
+                        is FirebaseNetworkException -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = "ネットワークエラー"
+                        }
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = "メールアドレスまたはパスワードが正しくありません"
+                        }
+                        else -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = "エラーが発生しましたdroidlun@gmail.com"
+                        }
+                    }
+                }
+            }
     }
 
     fun createPushed(email: String, password: String) {

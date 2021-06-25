@@ -22,13 +22,25 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         binding.btLogin.setOnClickListener {
             vm.loginPushed(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+            vm.eMessage.observe(viewLifecycleOwner) { msg ->
+                if (msg.isNotEmpty()) {
+                    Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show()
+                    vm.eMessage.value = ""
+                }
+            }
+            vm.done.observe(viewLifecycleOwner) {
+                if (it == true) {
+                    findNavController().popBackStack()
+                    vm.done.value = false
+                }
+            }
         }
 
         binding.btCreate.setOnClickListener {
             vm.createPushed(binding.etEmail.text.toString(), binding.etPassword.text.toString())
             vm.eMessage.observe(viewLifecycleOwner) { msg ->
                 if (msg.isNotEmpty()) {
-                    Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show()
                     vm.eMessage.value = ""
                 }
             }
