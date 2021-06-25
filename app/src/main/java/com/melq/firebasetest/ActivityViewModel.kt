@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.melq.firebasetest.model.user.User
@@ -122,13 +124,17 @@ class ActivityViewModel : ViewModel() {
                             Log.w(tag, "signInWithEmail: failure", task.exception)
                             eMessage.value = "ネットワークエラー"
                         }
+                        is FirebaseAuthInvalidUserException -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = "登録されていないメールアドレスです"
+                        }
                         is FirebaseAuthInvalidCredentialsException -> {
                             Log.w(tag, "signInWithEmail: failure", task.exception)
                             eMessage.value = "メールアドレスまたはパスワードが正しくありません"
                         }
                         else -> {
                             Log.w(tag, "signInWithEmail: failure", task.exception)
-                            eMessage.value = "エラーが発生しましたdroidlun@gmail.com"
+                            eMessage.value = "エラーが発生しました"
                         }
                     }
                 }
@@ -152,8 +158,20 @@ class ActivityViewModel : ViewModel() {
                     Log.d(tag, "createUserWithEmail: success")
                     done.value = true
                 } else {
-                    Log.w(tag, "createUserWithEmail: failure", task.exception)
-                    eMessage.value = "create user failed"
+                    when (task.exception) {
+                        is FirebaseNetworkException -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = "ネットワークエラー"
+                        }
+                        is FirebaseAuthUserCollisionException -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = "登録済みのメールアドレスです"
+                        }
+                        else -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = "エラーが発生しました"
+                        }
+                    }
                 }
             }
     }
