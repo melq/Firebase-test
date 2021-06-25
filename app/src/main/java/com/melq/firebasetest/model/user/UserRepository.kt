@@ -4,14 +4,14 @@ import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class UserFireStore {
+class UserRepository {
     companion object {
         const val collectionName = "users"
     }
 
     private val db = Firebase.firestore
 
-    fun createUser(user: User) {
+    fun createUser(user: User, onSuccess: () -> Unit) {
         val tag = "CREATE_USER"
         val doc = db.collection(collectionName).document(user.id)
         doc.get()
@@ -23,6 +23,7 @@ class UserFireStore {
                     doc.set(user)
                         .addOnSuccessListener {
                             Log.d(tag, "Document created: $user")
+                            onSuccess()
                         }
                         .addOnFailureListener { e ->
                             Log.w(tag, "create failed with", e)

@@ -12,11 +12,11 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.melq.firebasetest.model.user.User
-import com.melq.firebasetest.model.user.UserFireStore
+import com.melq.firebasetest.model.user.UserRepository
 import kotlinx.coroutines.*
 
 class ActivityViewModel : ViewModel() {
-    private val repository = UserFireStore()
+    private val repository = UserRepository()
 
     /* MainFragment用プロパティ */
     val isUserListLoaded = MutableLiveData<Boolean>()
@@ -76,8 +76,9 @@ class ActivityViewModel : ViewModel() {
             return
         } else {
             viewModelScope.launch {
-                repository.createUser(User(id, first, last, born.toInt()))
-                done.value = true
+                repository.createUser(User(id, first, last, born.toInt())) {
+                    done.value = true
+                }
             }
         }
     }
