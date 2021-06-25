@@ -67,18 +67,18 @@ class ActivityViewModel : ViewModel() {
     }
 
     fun createUser(id: String, first: String, last: String, born: String) { // vm.user使えば引数いらなくできる
-        if (id.isNotEmpty() &&
-            first.isNotEmpty() &&
-            last.isNotEmpty()&&
-            born.isNotEmpty()
+        if (id.isEmpty() ||
+            first.isEmpty() ||
+            last.isEmpty() ||
+            born.isEmpty()
         ) {
+            eMessage.value = "Please input all"
+            return
+        } else {
             viewModelScope.launch {
                 repository.createUser(User(id, first, last, born.toInt()))
                 done.value = true
             }
-        } else {
-            eMessage.value = "Please input all"
-            return
         }
     }
 
@@ -90,9 +90,18 @@ class ActivityViewModel : ViewModel() {
     }
 
     fun editUser() {
-        viewModelScope.launch {
-            repository.editUser(user)
-            done.value = true
+        if (user.id.isEmpty() ||
+            user.first.isEmpty() ||
+            user.last.isEmpty() ||
+            user.born == Int.MIN_VALUE
+        ) {
+            eMessage.value = "Please input all"
+            return
+        } else {
+            viewModelScope.launch {
+                repository.editUser(user)
+                done.value = true
+            }
         }
     }
 

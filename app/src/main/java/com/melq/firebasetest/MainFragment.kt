@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melq.firebasetest.databinding.FragmentMainBinding
+import com.melq.firebasetest.model.user.User
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val vm: ActivityViewModel by activityViewModels()
@@ -38,7 +39,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             setOnItemClickListener(object: CustomAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, position: Int, clickedId: String) {
                     Log.d("MAIN_FRAGMENT", "item clicked: ${vm.userList[position]}")
-                    vm.user = vm.userList[position]
+                    vm.user = User(
+                        vm.userList[position].id,
+                        vm.userList[position].first,
+                        vm.userList[position].last,
+                        vm.userList[position].born)
                     findNavController().navigate(R.id.action_mainFragment_to_editUserFragment)
                 }
             } )

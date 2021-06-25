@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.melq.firebasetest.ActivityViewModel
 import com.melq.firebasetest.R
 import com.melq.firebasetest.databinding.FragmentEditUserBinding
@@ -62,18 +63,25 @@ class EditUserFragment : Fragment(R.layout.fragment_edit_user) {
             vm.user.last = it.toString()
         }
         binding.etBorn.addTextChangedListener {
-            vm.user.born = it.toString().toInt()
+            vm.user.born =
+                if (it!!.isEmpty()) Int.MIN_VALUE
+                else it.toString().toInt()
         }
 
         binding.tvOk.setOnClickListener {
             vm.editUser()
             vm.done.observe(viewLifecycleOwner) {
                 if (it == true) {
-                    vm.done.value = false
                     findNavController().popBackStack()
+                    vm.done.value = false
                 }
             }
-//            vm.eMessage.observe(viewLifecycleOwner) {  } 後で追加
+            vm.eMessage.observe(viewLifecycleOwner) { msg ->
+                if (msg.isNotEmpty()) {
+                    Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show()
+                    vm.eMessage.value = ""
+                }
+            }
         }
     }
 }
