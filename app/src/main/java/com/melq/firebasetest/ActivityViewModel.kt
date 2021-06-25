@@ -111,7 +111,11 @@ class ActivityViewModel : ViewModel() {
             eMessage.value = "必要な情報を入力してください"
             return
         }
-        
+        if (password.length < 6) {
+            eMessage.value = "パスワードは6文字以上にしてください"
+            return
+        }
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
